@@ -14,5 +14,4 @@ This simple web app is using HTML/CSS/JavaScript. The javaScript is the major po
 ## Deployment
 
 This project is deployed on GitHub Pages:
-https://huiber121.github.io/se_project_todo-app/ 
-
+https://huiber121.github.io/se_project_todo-app/
