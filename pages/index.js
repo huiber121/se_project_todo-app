@@ -9,10 +9,8 @@ import TodoCounter from "../components/TodoCounter.js";
 const addTodoButton = document.querySelector(".button_action_add");
 const addTodoPopupEl = document.querySelector("#add-todo-popup");
 const addTodoForm = addTodoPopupEl.querySelector(".popup__form");
-const todosList = document.querySelector(".todos__list");
 
 const todoCounter = new TodoCounter(initialTodos, ".counter__text");
-
 const formValidator = new FormValidator(validationConfig, addTodoForm);
 
 //create a new instance of PopupWithForm
@@ -28,8 +26,9 @@ const addTodoPopup = new PopupWithForm({
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 
     const values = { name, date, id: uuidv4() };
-    const todo = generateTodo(values);
-    section.addItem(todo);
+    // const todo = generateTodo(values);
+    // section.addItem(todo);
+    renderTodo(values);
     todoCounter.updateTotal(true);
 
     formValidator.resetValidation();
@@ -37,9 +36,6 @@ const addTodoPopup = new PopupWithForm({
     addTodoPopup.close();
   },
 });
-
-//call the setEventListeners method
-addTodoPopup.setEventListeners();
 
 //create a new instance of Section
 //pass initialTodos as an argument
@@ -49,13 +45,13 @@ addTodoPopup.setEventListeners();
 const section = new Section({
   items: initialTodos, //pass initialTodos here
   renderer: (item) => {
-    //generate todo item
-    const todo = generateTodo(item);
-    //add it to the todo list
-    todosList.append(todo);
+    renderTodo(item);
   },
   containerSelector: ".todos__list",
 });
+
+//call the setEventListeners method
+addTodoPopup.setEventListeners();
 
 //call section instance's renderItems method
 section.renderItems();
@@ -71,6 +67,11 @@ function handdleDelete(completed) {
     todoCounter.updateCompleted(false);
   }
   todoCounter.updateTotal(false);
+}
+
+function renderTodo(item) {
+  const todo = generateTodo(item);
+  section.addItem(todo);
 }
 
 // The logic in this function should all be handled in the Todo class.
